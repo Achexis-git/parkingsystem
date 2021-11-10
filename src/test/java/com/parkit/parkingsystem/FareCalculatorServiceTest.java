@@ -128,6 +128,22 @@ public class FareCalculatorServiceTest {
 	}
 
 	@Test
+	public void calculateFareBikeWithLessThanHalfOneHourParkingTime() {
+		Date inTime = new Date();
+		inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000));// 15m parking time
+		
+		Date outTime = new Date();
+		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+
+		ticket.setInTime(inTime);
+		ticket.setOutTime(outTime);
+		ticket.setParkingSpot(parkingSpot);
+		fareCalculatorService.calculateFare(ticket);
+		
+		assertEquals((0.25 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice());
+	}
+	
+	@Test
 	public void calculateFareCarWithLessThanHalfOneHourParkingTime() {
 		Date inTime = new Date();
 		inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000));// 15m parking time
