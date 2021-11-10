@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 
 import com.parkit.parkingsystem.model.Ticket;
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
@@ -69,10 +70,20 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingLotExit(){
-        testParkingACar();
+    	//Principe F.I.R.S.T.
+        //testParkingACar(); 
+        
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        parkingService.processIncomingVehicle();    
+        //ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
+        
         //TODO: check that the fare generated and out time are populated correctly in the database
+        
+        ticket = ticketDAO.getTicket("ABCDEF");
+        
+        assertThat(ticket.getPrice()).isEqualTo(0.0);
+        assertThat(ticket.getOutTime()).isEqualToIgnoringMillis(new Date());
     }
 
 }
