@@ -18,7 +18,9 @@ import static org.mockito.Mockito.when;
 
 import com.parkit.parkingsystem.model.Ticket;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
@@ -60,30 +62,31 @@ public class ParkingDataBaseIT {
         parkingService.processIncomingVehicle();
         //TODO: check that a ticket is actually saved in DB and Parking table is updated with availability
         
-        //Charge le ticket de plaque ABCDEF de la DB
+        // Charge le ticket de plaque ABCDEF de la DB
         ticket = ticketDAO.getTicket("ABCDEF");
-        //Vérifie qu'il y a une ticket
+        // Vérifie qu'il y a une ticket
         assertThat(ticket).isNotEqualTo(null);
-        //Vérifie que la prochaine place disponible est la place 2
+        // Vérifie que la prochaine place disponible est la place 2
         assertThat(parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR)).isEqualTo(2);
     }
 
     @Test
     public void testParkingLotExit(){
-    	//Principe F.I.R.S.T.
-        //testParkingACar(); 
-        
+    	
+        testParkingACar(); 
+         
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-        parkingService.processIncomingVehicle();    
-        //ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
         
         //TODO: check that the fare generated and out time are populated correctly in the database
         
+        // Charge le ticket de plaque ABCDEF de la DB
         ticket = ticketDAO.getTicket("ABCDEF");
         
-        assertThat(ticket.getPrice()).isEqualTo(0.0);
-        assertThat(ticket.getOutTime()).isEqualToIgnoringMillis(new Date());
+        // Vérifie que le prix est bien proche de 0 dans la DB (et donc existe)
+        assertThat(ticket.getPrice()).isCloseTo(0.0, within(0.5));
+        // Vérifie que l'heure de sortie est proche de l'heure actuelle (et donc existe)
+        assertThat(ticket.getOutTime()).isCloseTo(new Date(), TimeUnit.SECONDS.toMillis(5));
     }
 
 }
