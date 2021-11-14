@@ -32,5 +32,10 @@ public class FareCalculatorService {
             }
             default: throw new IllegalArgumentException("Unkown Parking Type");
         }
+        
+        // parking gratuit si moins de 30m
+        if (duration <= 0.5) {
+        	ticket.setPrice(0);
+        }
     }
 }
