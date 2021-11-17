@@ -10,6 +10,7 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
+    private boolean clientReccurent;
 
     public int getId() {
         return id;
@@ -57,5 +58,13 @@ public class Ticket {
 
     public void setOutTime(Date outTime) {
         this.outTime = outTime;
+    }
+    
+    public boolean getClientReccurent() {
+    	return clientReccurent;
+    }
+    
+    public void setClientReccurent(boolean clientReccurent) {
+    	this.clientReccurent = clientReccurent;
     }
 }

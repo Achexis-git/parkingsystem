@@ -86,4 +86,37 @@ public class TicketDAO {
         }
         return false;
     }
+    
+    public boolean estCeUnClientReccurent(String vehicleRegNumber) {
+    	boolean res = false;
+    	
+    	Connection con = null;
+    	try {
+    		con = dataBaseConfig.getConnection();
+    		PreparedStatement ps = con.prepareStatement(DBConstants.GET_OCCURRENCES_VEHICLE);
+            // * de fois que la plaque apparaît dans la table des tickets
+    		ps.setString(1, vehicleRegNumber);
+    		ResultSet rs = ps.executeQuery();
+    		if(rs.next()) {
+    			// si une occurence => première visite (due à l'entrée du véhicule
+    			// sinon le véhicule est déjà venu
+    			if(rs.getInt(1) == 1) {
+    				res = false;
+    			}
+    			else {
+    				res = true;
+    			}
+    		}
+    		dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+    	}
+    	catch (Exception ex){
+    		logger.error("Error checking reccurent client", ex);
+    	}
+    	finally {
+    		dataBaseConfig.closeConnection(con);
+    	}
+   
+    	return res;
+    }
 }

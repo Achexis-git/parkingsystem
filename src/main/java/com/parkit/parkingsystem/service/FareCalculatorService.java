@@ -37,5 +37,10 @@ public class FareCalculatorService {
         if (duration <= 0.5) {
         	ticket.setPrice(0);
         }
+        
+        if (ticket.getClientReccurent()) {
+        	ticket.setPrice(ticket.getPrice() * 0.95);
+        	System.out.println("Hello");
+        }
     }
 }
