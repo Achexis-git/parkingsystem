@@ -99,30 +99,29 @@ public class ParkingDataBaseIT {
     public void testReccurentUserReduction() {
     	fareCalculatorService = new FareCalculatorService();
     	ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    	
         parkingService.processIncomingVehicle();
-        parkingService.processExitingVehicle();
+        parkingService.processExitingVehicle();   
+        parkingService.processIncomingVehicle(); 
         
-        parkingService.processIncomingVehicle();
         ticket = ticketDAO.getTicket("ABCDEF");
         
         Date inTime = new Date();
-		inTime.setTime(System.currentTimeMillis() - (10 * 60 * 60 * 1000));// 10h parking time
-		
+		inTime.setTime(System.currentTimeMillis() - (10 * 60 * 60 * 1000));// 10h parking time	
 		Date outTime = new Date();
 		
 		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-		
 		
 		ticket.setInTime(inTime);
 		ticket.setOutTime(outTime);
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber("ABCDEF");
 		ticket.setClientReccurent(ticketDAO.estCeUnClientReccurent("ABCDEF"));
+		
 		fareCalculatorService.calculateFare(ticket);
         
-        
-        //assertThat(ticket.getPrice()).isCloseTo(10 * Fare.CAR_RATE_PER_HOUR * 0.95, within(0.01)); // 95% du prix
-        assertThat(ticket.getClientReccurent()).isEqualTo(true);
+        assertThat(ticket.getPrice()).isCloseTo(10 * Fare.CAR_RATE_PER_HOUR * 0.95, within(0.01)); // 95% du prix
+        assertThat(ticket.getClientReccurent()).isEqualTo(true); // le programme détecte-t-il un client récurrent ?
     }
 
 }
