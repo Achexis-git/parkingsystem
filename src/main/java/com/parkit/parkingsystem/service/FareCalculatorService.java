@@ -33,14 +33,17 @@ public class FareCalculatorService {
             default: throw new IllegalArgumentException("Unkown Parking Type");
         }
         
-        // parking gratuit si moins de 30m
-        if (duration <= 0.5) {
+        applyReductions(ticket, duration);
+    }
+    
+    private void applyReductions(Ticket ticket, double duration) {
+    	// parking gratuit si moins de 30m
+    	if (duration <= 0.5) {
         	ticket.setPrice(0);
         }
-        
-        if (ticket.getClientReccurent()) {
+    	// -5% si client réccurent
+    	else if (ticket.getClientReccurent()) {
         	ticket.setPrice(ticket.getPrice() * 0.95);
-        	System.out.println("Hello");
         }
     }
 }
