@@ -68,11 +68,11 @@ public class ParkingDataBaseIT {
         parkingService.processIncomingVehicle();
         //TODO: check that a ticket is actually saved in DB and Parking table is updated with availability
         
-        // Charge le ticket de plaque ABCDEF de la DB
+        // Get the ticket of reg "ABCDEF" from the DB
         ticket = ticketDAO.getTicket("ABCDEF");
-        // Vérifie qu'il y a une ticket
+        // Verify if there is a ticket
         assertThat(ticket).isNotEqualTo(null);
-        // Vérifie que la prochaine place disponible est la place 2
+        // Verify if the next available spot is the 2 (give 2 if 1 not available)
         assertThat(parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR)).isEqualTo(2);
     }
 
@@ -86,13 +86,13 @@ public class ParkingDataBaseIT {
         
         //TODO: check that the fare generated and out time are populated correctly in the database
         
-        // Charge le ticket de plaque ABCDEF de la DB
+        // Get the ticket of reg "ABCDEF" from the DB
         ticket = ticketDAO.getTicket("ABCDEF");
         
-        // Vérifie que le prix est bien proche de 0 dans la DB (et donc existe)
+        // Verify if the price is close to 0 in the DB (and so exist)
         assertThat(ticket.getPrice()).isCloseTo(0.0, within(0.5));
-        // Vérifie que l'heure de sortie est proche de l'heure actuelle (et donc existe)
-        assertThat(ticket.getOutTime()).isCloseTo(new Date(), TimeUnit.SECONDS.toMillis(5)); // possible erreur si l'autre test est trop lent
+        // Verify that the out time is close to the actual time (and so exist)
+        assertThat(ticket.getOutTime()).isCloseTo(new Date(), TimeUnit.SECONDS.toMillis(5)); // possible error if testParkingCar() is too slow
     }
     
     /**
@@ -123,8 +123,8 @@ public class ParkingDataBaseIT {
 		
 		fareCalculatorService.calculateFare(ticket);
         
-        assertThat(ticket.getPrice()).isCloseTo(10 * Fare.CAR_RATE_PER_HOUR * 0.95, within(0.01)); // 95% du prix
-        assertThat(ticket.getRecurringCustomer()).isEqualTo(true); // le programme détecte-t-il un client récurrent ?
+        assertThat(ticket.getPrice()).isCloseTo(10 * Fare.CAR_RATE_PER_HOUR * 0.95, within(0.01)); // 95% of price
+        assertThat(ticket.getRecurringCustomer()).isEqualTo(true); // Does the program detect a recurring customer ?
     }
 
 }
