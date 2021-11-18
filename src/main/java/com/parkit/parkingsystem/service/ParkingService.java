@@ -104,7 +104,7 @@ public class ParkingService {
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
             Date outTime = new Date();
             ticket.setOutTime(outTime);
-            ticket.setRecurringCustomer(ticketDAO.isItARecurringCustomer(vehicleRegNumber)); // vérifie si client récurrent
+            ticket.setRecurringCustomer(ticketDAO.isItARecurringCustomer(vehicleRegNumber)); // verify if recurring customer in the DB
             fareCalculatorService.calculateFare(ticket);
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();

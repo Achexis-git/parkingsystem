@@ -99,17 +99,20 @@ public class TicketDAO {
     	try {
     		con = dataBaseConfig.getConnection();
     		PreparedStatement ps = con.prepareStatement(DBConstants.GET_OCCURRENCES_VEHICLE);
-            // * de fois que la plaque apparaît dans la table des tickets
+    		// number of times the reg number appears in the tickets table
     		ps.setString(1, vehicleRegNumber);
     		ResultSet rs = ps.executeQuery();
     		if(rs.next()) {
-    			// si une occurence => première visite (due à l'entrée du véhicule
-    			// sinon le véhicule est déjà venu
+    			// if one occurence => first visit (because it create a ticket at the incomming)
     			if(rs.getInt(1) == 1) {
     				res = false;
     			}
-    			else {
+    			// else if greater than one => already come
+    			else if (rs.getInt(1) > 1) {
     				res = true;
+    			}
+    			else {
+    				logger.error("Error incoherent visits number");
     			}
     		}
     		dataBaseConfig.closeResultSet(rs);
