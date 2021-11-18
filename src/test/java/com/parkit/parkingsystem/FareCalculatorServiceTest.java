@@ -130,8 +130,8 @@ public class FareCalculatorServiceTest {
 	@Test
 	public void calculateFareBikeWithLessThanHalfOneHourParkingTime() {
 		Date inTime = new Date();
-		inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000));// 15m parking time
-		
+		inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000)); // 15m parking time
+
 		Date outTime = new Date();
 		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
 
@@ -139,15 +139,15 @@ public class FareCalculatorServiceTest {
 		ticket.setOutTime(outTime);
 		ticket.setParkingSpot(parkingSpot);
 		fareCalculatorService.calculateFare(ticket);
-		
-		assertEquals(0, ticket.getPrice()); // parking gratuit si moins 30m
+
+		assertEquals(0, ticket.getPrice()); // parking free if less than 30m
 	}
-	
+
 	@Test
 	public void calculateFareCarWithLessThanHalfOneHourParkingTime() {
 		Date inTime = new Date();
 		inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000));// 15m parking time
-		
+
 		Date outTime = new Date();
 		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
@@ -155,7 +155,7 @@ public class FareCalculatorServiceTest {
 		ticket.setOutTime(outTime);
 		ticket.setParkingSpot(parkingSpot);
 		fareCalculatorService.calculateFare(ticket);
-		
-		assertEquals(0, ticket.getPrice()); // parking gratuit si moins 30m
+
+		assertEquals(0, ticket.getPrice()); // pparking free if less than 30m
 	}
 }
