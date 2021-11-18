@@ -156,6 +156,6 @@ public class FareCalculatorServiceTest {
 		ticket.setParkingSpot(parkingSpot);
 		fareCalculatorService.calculateFare(ticket);
 
-		assertEquals(0, ticket.getPrice()); // pparking free if less than 30m
+		assertEquals(0, ticket.getPrice()); // parking free if less than 30m
 	}
 }

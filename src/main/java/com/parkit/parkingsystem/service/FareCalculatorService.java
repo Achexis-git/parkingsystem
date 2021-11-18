@@ -10,14 +10,14 @@ public class FareCalculatorService {
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
 
-        //int inHour = ticket.getInTime().getHours();  méthode obsolète
+        //int inHour = ticket.getInTime().getHours();  deprecated method
         //int outHour = ticket.getOutTime().getHours();
         
-        double inHour  = ticket.getInTime().getTime();  // getTime() => temps écoulé en ms depuis 1970
+        double inHour  = ticket.getInTime().getTime();  // getTime() => time since 1970 in ms
         double outHour = ticket.getOutTime().getTime();
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
-        //Solution: getHours() donne juste l'heure entière, besoin de compter les minutes + méthode obsolète
+        //Solution: getHours() give only the whole hour, problem if between hours => compute with milliseconds + deprecated method
         double duration = outHour - inHour;
         duration = duration / (1000 * 60 *60); // milliseconds => hours
 
@@ -37,11 +37,11 @@ public class FareCalculatorService {
     }
     
     private void applyReductions(Ticket ticket, double duration) {
-    	// parking gratuit si moins de 30m
+    	// free parking if less than 30m
     	if (duration <= 0.5) {
         	ticket.setPrice(0);
         }
-    	// -5% si client réccurent
+    	// -5% if recurring customer
     	else if (ticket.getRecurringCustomer()) {
         	ticket.setPrice(ticket.getPrice() * 0.95);
         }
