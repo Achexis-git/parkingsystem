@@ -95,6 +95,9 @@ public class ParkingDataBaseIT {
         assertThat(ticket.getOutTime()).isCloseTo(new Date(), TimeUnit.SECONDS.toMillis(5)); // possible erreur si l'autre test est trop lent
     }
     
+    /**
+     * Test if the 5% reduction is applied for multiple visits
+     */
     @Test
     public void testReccurentUserReduction() {
     	fareCalculatorService = new FareCalculatorService();

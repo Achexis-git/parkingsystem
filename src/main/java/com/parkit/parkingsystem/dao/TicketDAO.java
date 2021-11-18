@@ -92,6 +92,12 @@ public class TicketDAO {
         return false;
     }
     
+    /**
+     * Check if it's a recurring registration number in the DB
+     * 
+     * @param vehicleRegNumber Registration number of the vehicle
+     * @return Answer to the question
+     */
     public boolean isItARecurringCustomer(String vehicleRegNumber) {
     	boolean res = false;
     	

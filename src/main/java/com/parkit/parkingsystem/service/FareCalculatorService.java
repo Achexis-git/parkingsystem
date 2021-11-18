@@ -36,6 +36,13 @@ public class FareCalculatorService {
         applyReductions(ticket, duration);
     }
     
+    /**
+     * Apply the reductions to the ticket price
+     * 
+     * @param ticket Parking ticket
+     * @param duration Parking time
+     * 
+     */
     private void applyReductions(Ticket ticket, double duration) {
     	// free parking if less than 30m
     	if (duration <= 0.5) {

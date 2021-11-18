@@ -10,6 +10,10 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
+    /**
+     * @see Ticket#getRecurringCustomer()
+     * @see Ticket#setRecurringCustomer(boolean)
+     */
     private boolean recurringCustomer;
 
     public int getId() {
