@@ -116,12 +116,12 @@ public class ParkingDataBaseIT {
 		ticket.setOutTime(outTime);
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber("ABCDEF");
-		ticket.setClientReccurent(ticketDAO.estCeUnClientReccurent("ABCDEF"));
+		ticket.setRecurringCustomer(ticketDAO.isItARecurringCustomer("ABCDEF"));
 		
 		fareCalculatorService.calculateFare(ticket);
         
         assertThat(ticket.getPrice()).isCloseTo(10 * Fare.CAR_RATE_PER_HOUR * 0.95, within(0.01)); // 95% du prix
-        assertThat(ticket.getClientReccurent()).isEqualTo(true); // le programme détecte-t-il un client récurrent ?
+        assertThat(ticket.getRecurringCustomer()).isEqualTo(true); // le programme détecte-t-il un client récurrent ?
     }
 
 }

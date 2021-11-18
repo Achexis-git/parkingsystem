@@ -10,7 +10,7 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
-    private boolean clientReccurent;
+    private boolean recurringCustomer;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class Ticket {
         this.outTime = outTime;
     }
     
-    public boolean getClientReccurent() {
-    	return clientReccurent;
+    public boolean getRecurringCustomer() {
+    	return recurringCustomer;
     }
     
-    public void setClientReccurent(boolean clientReccurent) {
-    	this.clientReccurent = clientReccurent;
+    public void setRecurringCustomer(boolean recurringCustomer) {
+    	this.recurringCustomer = recurringCustomer;
     }
 }

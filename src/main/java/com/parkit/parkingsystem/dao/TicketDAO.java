@@ -92,7 +92,7 @@ public class TicketDAO {
         return false;
     }
     
-    public boolean estCeUnClientReccurent(String vehicleRegNumber) {
+    public boolean isItARecurringCustomer(String vehicleRegNumber) {
     	boolean res = false;
     	
     	Connection con = null;

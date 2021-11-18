@@ -42,7 +42,7 @@ public class FareCalculatorService {
         	ticket.setPrice(0);
         }
     	// -5% si client réccurent
-    	else if (ticket.getClientReccurent()) {
+    	else if (ticket.getRecurringCustomer()) {
         	ticket.setPrice(ticket.getPrice() * 0.95);
         }
     }
