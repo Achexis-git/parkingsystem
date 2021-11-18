@@ -103,7 +103,7 @@ public class TicketDAO {
     		ps.setString(1, vehicleRegNumber);
     		ResultSet rs = ps.executeQuery();
     		if(rs.next()) {
-    			// if one occurence => first visit (because it create a ticket at the incomming)
+    			// if one occurrence => first visit (because it create a ticket on arrival)
     			if(rs.getInt(1) == 1) {
     				res = false;
     			}
