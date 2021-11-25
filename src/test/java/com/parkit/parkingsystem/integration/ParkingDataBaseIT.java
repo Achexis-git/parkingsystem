@@ -125,7 +125,7 @@ public class ParkingDataBaseIT {
 		fareCalculatorService.calculateFare(ticket);
         
         assertThat(ticket.getPrice()).isCloseTo(10 * Fare.CAR_RATE_PER_HOUR * 0.95, within(0.01)); // 95% of price
-        assertThat(ticket.getRecurringCustomer()).isEqualTo(true); // Does the program detect a recurring customer ?
+        assertThat(ticket.getRecurringCustomer()).isEqualTo(true); // Does the program detects a recurring customer ?
     }
 
 }
